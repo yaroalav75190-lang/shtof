@@ -392,14 +392,15 @@ a { color: inherit; text-decoration: none; }
 }
 @media (max-width: 520px) {
   .band-3 { grid-template-columns: 1fr; grid-template-areas: "l1" "sets" "l2" "tree" "boat"; }
-  .band-3 .b-boat { border-left: 0; margin-top: 40px; }
-  .band-3 .scl { width: 88px; margin-right: 6px; }
-  .band-3 .gs { height: 13px; }
-  .band-3 .snm { width: 72px; font-size: 17px; }
-  .band-3 .sd { margin: 0 6px 5px; }
-  .band-3 .sv, .band-3 .spr { width: 70px; }
-  .band-3 .sv + .sv, .band-3 .spr + .spr { margin-left: 8px; }
+  .band-3 .b-boat { border-left: 0; margin-top: 36px; }
+  .band-3 .b-tree, .band-3 .b-boat { min-height: 0; justify-content: flex-start; }
+  .band-3 .b-l2 { margin-top: 44px; }
+  .band-3 .snm { width: 84px; font-size: 17px; }
+  .band-3 .sd { margin: 0 10px 5px; }
+  .band-3 .sv, .band-3 .spr { width: 84px; }
+  .band-3 .sv + .sv, .band-3 .spr + .spr { margin-left: 14px; }
   .band-3 .spr { font-size: 17px; }
+  .band-3 .srow { margin-bottom: 10px; }
   .band-3 .sig .tree-svg { width: 190px; } .band-3 .sig .boat-svg { width: 250px; }
 }
 
