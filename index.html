@@ -205,7 +205,7 @@ a { color: inherit; text-decoration: none; }
 .setnote { font-size: 15px; font-style: italic; color: var(--muted); margin-top: 26px; }
 
 /* сигнатуры */
-.sig-col { display: flex; flex-direction: column; gap: 64px; margin-top: 10px; }
+.sig-col { display: flex; flex-direction: row; align-items: flex-end; gap: 56px; margin-top: 10px; flex-wrap: wrap; }
 .sig { text-align: left; }
 .sig .tree-svg { width: 210px; height: auto; margin: 0 0 14px; }
 .sig .boat-svg { width: 280px; height: auto; margin: 0 0 14px; }
@@ -302,7 +302,7 @@ a { color: inherit; text-decoration: none; }
   .cat-cols { grid-template-columns: 1fr; }
   .ccol + .ccol { border-left: 0; padding-left: 0; }
   .plate { height: 62vh; }
-  .sig-col { gap: 48px; }
+  .sig-col { gap: 32px; }
 }
 @media (max-width: 520px) {
   .btn-book { padding: 10px 14px; letter-spacing: .12em; }
@@ -375,7 +375,7 @@ a { color: inherit; text-decoration: none; }
 .band { border-top: 1px solid var(--line2); }
 .band-in {
   max-width: 1200px; margin: 0 auto; padding: 92px 32px 96px;
-  display: grid; grid-template-columns: 1fr 1fr; gap: 0 88px; align-items: start;
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.18fr); gap: 0 88px; align-items: start;
 }
 .band-in .sets { margin: 0; }
 
