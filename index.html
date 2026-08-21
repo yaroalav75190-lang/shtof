@@ -445,6 +445,14 @@ a { color: inherit; text-decoration: none; }
   }
   .foot-brand { font-size: 11px; letter-spacing: .18em; line-height: 1.9; }
 }
+/* ═══ ВИДЕО-ВИЗИТКА В ТИТУЛЕ ═══ */
+.cov-ph { background: var(--ink); }
+.cov-video { width: 100%; height: 100%; object-fit: cover; display: block; }
+.cov-poster { display: none; }
+@media (prefers-reduced-motion: reduce) { .cov-video { display: none; } .cov-poster { display: block; width: 100%; height: 100%; object-fit: cover; } }
+.ph-right { object-position: 72% 50%; }
+.ph-top { object-position: 50% 22%; }
+
 /* ═══ SKIP-LINK ═══ */
 .skip-link {
   position: absolute; left: -9999px; top: 0; z-index: 100;
@@ -666,16 +674,14 @@ a { color: inherit; text-decoration: none; }
     <div class="cover-rule"></div>
     <p class="addr">Екатеринбург, ул. 8 Марта, 8д · ТЦ «Мытный двор»</p>
   </div>
-  <figure class="cov-ph">
-    <img class="ph" src="assets/img/hero-set.webp" alt="Дегустационный сет настоек ШТОФЪ" fetchpriority="high">
-  </figure>
-  <span class="vcap" aria-hidden="true">Дегустационный сет фирменных настоек</span>
+  <figure class="cov-ph"><video class="ph cov-video" autoplay muted loop playsinline preload="metadata" poster="assets/img/cover-poster.webp" aria-label="Живые вечера в ресторане ШТОФЪ"><source src="assets/video/vizitka.mp4" type="video/mp4"></video><img class="ph cov-poster" src="assets/img/cover-poster.webp" alt="Живой вечер в ресторане ШТОФЪ: вокалистка у микрофона"></figure>
+  <span class="vcap" aria-hidden="true">Живые вечера · гости поют и танцуют</span>
 </section>
 
 <!-- 01 · ФИРМЕННЫЕ НАСТОЙКИ -->
 <section class="spread sp5050" id="nastoyki">
   <figure class="sph">
-    <img class="ph" src="assets/img/tasting-board.webp" alt="Дегустационный сет настоек на доске" loading="lazy">
+    <img class="ph ph-right" src="assets/img/nastoyki-pour.webp" alt="Дегустационный сет: настойки на доске, подача с закуской" loading="lazy">
   </figure>
   <div class="stxt">
     <span class="no no-r" aria-hidden="true">01</span>
@@ -776,7 +782,7 @@ a { color: inherit; text-decoration: none; }
 <!-- 03 · КУХНЯ -->
 <section class="chapter chapter-split" id="kitchen">
   <div class="ch-split">
-    <figure class="ch-photo"><img class="ph" src="assets/img/dish.webp" alt="Блюдо из меню ресторана ШТОФЪ" loading="lazy"></figure>
+    <figure class="ch-photo"><img class="ph" src="assets/img/borsch.webp" alt="Борщ с говядиной в керамической кокотнице, ржаной хлеб — кухня ШТОФЪ" loading="lazy"></figure>
     <div class="ch-intro">
       <span class="no no-r" aria-hidden="true">03</span>
       <p class="ch-kicker">Глава третья</p>
@@ -953,7 +959,7 @@ a { color: inherit; text-decoration: none; }
 <!-- 04 · БАР -->
 <section class="chapter chapter-split" id="bar">
   <div class="ch-split rev">
-    <figure class="ch-photo"><img class="ph" src="assets/img/guest-drink.webp" alt="Гостья с коктейлем в зале ресторана ШТОФЪ" loading="lazy"></figure>
+    <figure class="ch-photo"><img class="ph" src="assets/img/cocktail.webp" alt="Авторский коктейль на мраморной стойке бара ШТОФЪ" loading="lazy"></figure>
     <div class="ch-intro">
       <span class="no no-l" aria-hidden="true">04</span>
       <p class="ch-kicker">Глава четвёртая</p>
@@ -1199,7 +1205,7 @@ a { color: inherit; text-decoration: none; }
 <!-- ФОТО-ТРИПТИХ -->
 <div class="trio">
   <figure><img class="ph" src="assets/img/interior-1.webp" alt="Зал ресторана ШТОФЪ: подсвеченные арки и мягкие диваны" loading="lazy"><figcaption>Зал с арками</figcaption></figure>
-  <figure><img class="ph" src="assets/img/guests.webp" alt="Гости за столом в ресторане ШТОФЪ" loading="lazy"><figcaption>Повод встретиться</figcaption></figure>
+  <figure><img class="ph ph-top" src="assets/img/guest-drink.webp" alt="Гостья с коктейлем в зале ресторана ШТОФЪ" loading="lazy"><figcaption>Повод встретиться</figcaption></figure>
   <figure><img class="ph" src="assets/img/interior-2.webp" alt="Кирпичная стена и зелень в интерьере ресторана" loading="lazy"><figcaption>Кирпич и зелень</figcaption></figure>
 </div>
 
@@ -1250,7 +1256,7 @@ a { color: inherit; text-decoration: none; }
 
 <!-- ФИНАЛЬНАЯ ВКЛЕЙКА -->
 <figure class="plate plate-final">
-  <img class="ph" src="assets/img/nastoyki-pour.webp" alt="Настойку наливают в чарку" loading="lazy">
+  <img class="ph" src="assets/img/interior-4.webp" alt="Зал ресторана ШТОФЪ: мраморные столы, подвесные лампы, лестница" loading="lazy">
   <a class="btn-book plate-btn" href="#contacts">Забронировать</a>
   <figcaption class="plate-cap">06 · Ждём вас в ШТОФЪ</figcaption>
 </figure>
