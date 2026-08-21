@@ -364,11 +364,21 @@ a { color: inherit; text-decoration: none; }
 .req-d[open] summary { margin-bottom: 6px; }
 
 /* ═══ ПОЛОСА «СЕТЫ + СИГНАТУРНАЯ ПОДАЧА»: три колонки в одну строку, без пустот ═══ */
-.band-3 { grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr) minmax(0, 1fr);
-  grid-template-areas: "l1 l2 l2" "sets tree boat"; gap: 0 56px; align-items: start; }
+.band-3 { grid-template-columns: minmax(0, 1.618fr) minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-areas: "l1 l2 l2" "sets tree boat"; gap: 0 48px; align-items: start; padding-top: 72px; padding-bottom: 44px; }
 .band-3 .b-l1 { grid-area: l1; } .band-3 .b-l2 { grid-area: l2; }
 .band-3 .b-sets { grid-area: sets; }
-.band-3 .scl { width: 166px; flex: none; margin-right: 8px; }
+/* таблица сетов: все колонки жёсткие (flex:none) — ничего не сжимается, шапка 25/40 мл стоит ровно над ценами */
+.band-3 .scl { width: 120px; flex: none; margin-right: 8px; }
+.band-3 .gs { height: 15px; }
+.band-3 .snm { flex: none; width: 84px; }
+.band-3 .sd { flex: 1 1 auto; min-width: 18px; }
+.band-3 .sd0 { flex: 1 1 auto; }
+.band-3 .sv, .band-3 .spr { flex: none; width: 90px; }
+.band-3 .sv + .sv, .band-3 .spr + .spr { margin-left: 12px; }
+.band-3 .setnote { margin-top: 20px; }
+.band-3 .sig .tree-svg { width: 200px; }
+.band-3 .sig .boat-svg { width: 262px; }
 .band-3 .b-tree { grid-area: tree; } .band-3 .b-boat { grid-area: boat; }
 .band-3 .b-tree, .band-3 .b-boat { display: flex; flex-direction: column; align-items: center; justify-content: flex-end; text-align: center; min-height: 100%; }
 .band-3 .b-boat { border-left: 1px solid var(--line2); }
@@ -383,6 +393,13 @@ a { color: inherit; text-decoration: none; }
 @media (max-width: 520px) {
   .band-3 { grid-template-columns: 1fr; grid-template-areas: "l1" "sets" "l2" "tree" "boat"; }
   .band-3 .b-boat { border-left: 0; margin-top: 40px; }
+  .band-3 .scl { width: 88px; margin-right: 6px; }
+  .band-3 .gs { height: 13px; }
+  .band-3 .snm { width: 72px; font-size: 17px; }
+  .band-3 .sd { margin: 0 6px 5px; }
+  .band-3 .sv, .band-3 .spr { width: 70px; }
+  .band-3 .sv + .sv, .band-3 .spr + .spr { margin-left: 8px; }
+  .band-3 .spr { font-size: 17px; }
   .band-3 .sig .tree-svg { width: 190px; } .band-3 .sig .boat-svg { width: 250px; }
 }
 
