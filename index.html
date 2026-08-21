@@ -363,6 +363,60 @@ a { color: inherit; text-decoration: none; }
 .req-d summary:hover { color: var(--ink); border-color: var(--ink); }
 .req-d[open] summary { margin-bottom: 6px; }
 
+/* ═══ ПОЛОСА «СЕТЫ + СИГНАТУРНАЯ ПОДАЧА»: три колонки в одну строку, без пустот ═══ */
+.band-3 { grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-areas: "l1 l2 l2" "sets tree boat"; gap: 0 56px; align-items: start; }
+.band-3 .b-l1 { grid-area: l1; } .band-3 .b-l2 { grid-area: l2; }
+.band-3 .b-sets { grid-area: sets; }
+.band-3 .scl { width: 166px; flex: none; margin-right: 8px; }
+.band-3 .b-tree { grid-area: tree; } .band-3 .b-boat { grid-area: boat; }
+.band-3 .b-tree, .band-3 .b-boat { display: flex; flex-direction: column; align-items: center; justify-content: flex-end; text-align: center; min-height: 100%; }
+.band-3 .b-boat { border-left: 1px solid var(--line2); }
+.band-3 .sig { text-align: center; }
+.band-3 .sig .tree-svg { width: 210px; }
+.band-3 .sig .boat-svg { width: 270px; }
+@media (max-width: 900px) {
+  .band-3 { grid-template-columns: 1fr 1fr; grid-template-areas: "l1 l1" "sets sets" "l2 l2" "tree boat"; gap: 0 24px; }
+  .band-3 .b-l2 { margin-top: 56px; }
+  .band-3 .sig .tree-svg { width: 150px; } .band-3 .sig .boat-svg { width: 190px; }
+}
+@media (max-width: 520px) {
+  .band-3 { grid-template-columns: 1fr; grid-template-areas: "l1" "sets" "l2" "tree" "boat"; }
+  .band-3 .b-boat { border-left: 0; margin-top: 40px; }
+  .band-3 .sig .tree-svg { width: 190px; } .band-3 .sig .boat-svg { width: 250px; }
+}
+
+/* ═══ ШАПКА ГЛАВЫ РАЗВОРОТОМ: фото во всю высоту + заголовок + лид + «С чего начать» ═══ */
+.chapter-split { padding-top: 0; }
+.ch-split { display: grid; grid-template-columns: minmax(300px, 2fr) 3fr; gap: 0 64px;
+  margin: 0 -32px 56px; border-bottom: 1px solid var(--line2); }
+.ch-split.rev { grid-template-columns: 3fr minmax(300px, 2fr); }
+.ch-split.rev .ch-photo { order: 2; }
+.ch-photo { margin: 0; overflow: clip; min-height: 560px; }
+.ch-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 35%; }
+.ch-intro { position: relative; padding: 88px 32px 64px 0; display: flex; flex-direction: column; justify-content: center; }
+.ch-split.rev .ch-intro { padding: 88px 0 64px 32px; }
+.ch-intro .no { top: 24px; }
+.ch-intro h2 { font-size: clamp(34px, 4.4vw, 52px); font-weight: 700; letter-spacing: .15em; text-transform: uppercase; line-height: 1.1; margin: 14px 0 12px; }
+.ch-intro .ch-rule { margin: 22px 0 0; max-width: 420px; }
+.ch-lead { font-size: 17px; line-height: 1.6; margin-top: 26px; max-width: 560px; }
+.ch-lead b { font-weight: 700; }
+.hits { margin-top: 30px; max-width: 520px; }
+.hits-t { font-size: 11px; letter-spacing: .26em; text-transform: uppercase; font-weight: 700; color: var(--ink);
+  padding-bottom: 8px; border-bottom: 1px solid var(--line); margin-bottom: 10px; }
+.hits-l { list-style: none; }
+.hits-l li { display: flex; align-items: baseline; gap: 10px; padding: 6px 0; }
+.hit-n { font-size: 15px; }
+.hit-d { flex: 1; border-bottom: 1px dotted var(--dot); transform: translateY(-4px); min-width: 16px; }
+.hit-p { font-size: 15px; font-weight: 700; white-space: nowrap; font-variant-numeric: tabular-nums; }
+@media (max-width: 900px) {
+  .ch-split, .ch-split.rev { grid-template-columns: 1fr; margin: 0 -20px 40px; }
+  .ch-split.rev .ch-photo { order: 0; }
+  .ch-photo { min-height: 0; height: 58vh; }
+  .ch-intro, .ch-split.rev .ch-intro { padding: 40px 20px 44px; }
+  .ch-intro .no { top: 8px; }
+}
+
 /* ═══ SKIP-LINK ═══ */
 .skip-link {
   position: absolute; left: -9999px; top: 0; z-index: 100;
@@ -618,27 +672,21 @@ a { color: inherit; text-decoration: none; }
 
 <!-- СЕТЫ И СИГНАТУРНАЯ ПОДАЧА -->
 <section class="band" aria-label="Дегустационные сеты и сигнатурная подача">
-  <div class="band-in">
-    <div>
-      <h3 class="lbl">Дегустационные сеты</h3>
-    <div class="sets">
+  <div class="band-in band-3">
+    <h3 class="lbl b-l1">Дегустационные сеты</h3>
+    <h3 class="lbl b-l2">Сигнатурная подача</h3>
+    <div class="b-sets"><div class="sets">
       <div class="srow shead"><span class="scl"></span><span class="snm"></span><span class="sd0"></span><span class="sv">25 мл</span><span class="sv">40 мл</span></div><div class="srow"><span class="scl"><div class="cluster"><svg class="gs" viewBox="0 0 20 26" xmlns="http://www.w3.org/2000/svg"><path fill="#1C1A17" d="M3 2 H17 C17 9.6 13.8 12.9 11 13.5 V21.4 H15 V23.2 H5 V21.4 H9 V13.5 C6.2 12.9 3 9.6 3 2 Z"/></svg><svg class="gs" viewBox="0 0 20 26" xmlns="http://www.w3.org/2000/svg"><path fill="#1C1A17" d="M3 2 H17 C17 9.6 13.8 12.9 11 13.5 V21.4 H15 V23.2 H5 V21.4 H9 V13.5 C6.2 12.9 3 9.6 3 2 Z"/></svg><svg class="gs" viewBox="0 0 20 26" xmlns="http://www.w3.org/2000/svg"><path fill="#1C1A17" d="M3 2 H17 C17 9.6 13.8 12.9 11 13.5 V21.4 H15 V23.2 H5 V21.4 H9 V13.5 C6.2 12.9 3 9.6 3 2 Z"/></svg></div></span><span class="snm">3 рюмки</span><span class="sd"></span><span class="spr">540 ₽</span><span class="spr">810 ₽</span></div><div class="srow"><span class="scl"><div class="cluster"><svg class="gs" viewBox="0 0 20 26" xmlns="http://www.w3.org/2000/svg"><path fill="#1C1A17" d="M3 2 H17 C17 9.6 13.8 12.9 11 13.5 V21.4 H15 V23.2 H5 V21.4 H9 V13.5 C6.2 12.9 3 9.6 3 2 Z"/></svg><svg class="gs" viewBox="0 0 20 26" xmlns="http://www.w3.org/2000/svg"><path fill="#1C1A17" d="M3 2 H17 C17 9.6 13.8 12.9 11 13.5 V21.4 H15 V23.2 H5 V21.4 H9 V13.5 C6.2 12.9 3 9.6 3 2 Z"/></svg><svg class="gs" viewBox="0 0 20 26" xmlns="http://www.w3.org/2000/svg"><path fill="#1C1A17" d="M3 2 H17 C17 9.6 13.8 12.9 11 13.5 V21.4 H15 V23.2 H5 V21.4 H9 V13.5 C6.2 12.9 3 9.6 3 2 Z"/></svg><svg class="gs" viewBox="0 0 20 26" xmlns="http://www.w3.org/2000/svg"><path fill="#1C1A17" d="M3 2 H17 C17 9.6 13.8 12.9 11 13.5 V21.4 H15 V23.2 H5 V21.4 H9 V13.5 C6.2 12.9 3 9.6 3 2 Z"/></svg><svg class="gs" viewBox="0 0 20 26" xmlns="http://www.w3.org/2000/svg"><path fill="#1C1A17" d="M3 2 H17 C17 9.6 13.8 12.9 11 13.5 V21.4 H15 V23.2 H5 V21.4 H9 V13.5 C6.2 12.9 3 9.6 3 2 Z"/></svg></div></span><span class="snm">5 рюмок</span><span class="sd"></span><span class="spr">900 ₽</span><span class="spr">1 350 ₽</span></div><div class="srow"><span class="scl"><div class="cluster"><svg class="gs" viewBox="0 0 20 26" xmlns="http://www.w3.org/2000/svg"><path fill="#1C1A17" d="M3 2 H17 C17 9.6 13.8 12.9 11 13.5 V21.4 H15 V23.2 H5 V21.4 H9 V13.5 C6.2 12.9 3 9.6 3 2 Z"/></svg><svg class="gs" viewBox="0 0 20 26" xmlns="http://www.w3.org/2000/svg"><path fill="#1C1A17" d="M3 2 H17 C17 9.6 13.8 12.9 11 13.5 V21.4 H15 V23.2 H5 V21.4 H9 V13.5 C6.2 12.9 3 9.6 3 2 Z"/></svg><svg class="gs" viewBox="0 0 20 26" xmlns="http://www.w3.org/2000/svg"><path fill="#1C1A17" d="M3 2 H17 C17 9.6 13.8 12.9 11 13.5 V21.4 H15 V23.2 H5 V21.4 H9 V13.5 C6.2 12.9 3 9.6 3 2 Z"/></svg><svg class="gs" viewBox="0 0 20 26" xmlns="http://www.w3.org/2000/svg"><path fill="#1C1A17" d="M3 2 H17 C17 9.6 13.8 12.9 11 13.5 V21.4 H15 V23.2 H5 V21.4 H9 V13.5 C6.2 12.9 3 9.6 3 2 Z"/></svg><svg class="gs" viewBox="0 0 20 26" xmlns="http://www.w3.org/2000/svg"><path fill="#1C1A17" d="M3 2 H17 C17 9.6 13.8 12.9 11 13.5 V21.4 H15 V23.2 H5 V21.4 H9 V13.5 C6.2 12.9 3 9.6 3 2 Z"/></svg><svg class="gs" viewBox="0 0 20 26" xmlns="http://www.w3.org/2000/svg"><path fill="#1C1A17" d="M3 2 H17 C17 9.6 13.8 12.9 11 13.5 V21.4 H15 V23.2 H5 V21.4 H9 V13.5 C6.2 12.9 3 9.6 3 2 Z"/></svg><svg class="gs" viewBox="0 0 20 26" xmlns="http://www.w3.org/2000/svg"><path fill="#1C1A17" d="M3 2 H17 C17 9.6 13.8 12.9 11 13.5 V21.4 H15 V23.2 H5 V21.4 H9 V13.5 C6.2 12.9 3 9.6 3 2 Z"/></svg><svg class="gs" viewBox="0 0 20 26" xmlns="http://www.w3.org/2000/svg"><path fill="#1C1A17" d="M3 2 H17 C17 9.6 13.8 12.9 11 13.5 V21.4 H15 V23.2 H5 V21.4 H9 V13.5 C6.2 12.9 3 9.6 3 2 Z"/></svg></div></span><span class="snm">8 рюмок</span><span class="sd"></span><span class="spr">1 440 ₽</span><span class="spr">2 160 ₽</span></div>
       <p class="setnote">Каждая порция и каждый сет подаются с закуской.</p>
-    </div>
-    </div>
-    <div>
-      <h3 class="lbl">Сигнатурная подача</h3>
-    <div class="sig-col">
-      <div class="sig">
+    </div></div>
+    <div class="b-tree"><div class="sig">
         <svg class="tree-svg" viewBox="0 0 240 188" xmlns="http://www.w3.org/2000/svg"><defs><path id="tg" fill="#1C1A17" d="M3 2 H17 C17 9.6 13.8 12.9 11 13.5 V21.4 H15 V23.2 H5 V21.4 H9 V13.5 C6.2 12.9 3 9.6 3 2 Z"/></defs><path d="M120 54 Q120 47 120 40" fill="none" stroke="#1C1A17" stroke-width="1.4" stroke-linecap="round"/><path d="M120 74 Q108 67 92 60" fill="none" stroke="#1C1A17" stroke-width="1.4" stroke-linecap="round"/><path d="M120 74 Q132 67 148 60" fill="none" stroke="#1C1A17" stroke-width="1.4" stroke-linecap="round"/><path d="M120 90 Q120 83 120 76" fill="none" stroke="#1C1A17" stroke-width="1.4" stroke-linecap="round"/><path d="M120 96 Q96 89 64 82" fill="none" stroke="#1C1A17" stroke-width="1.4" stroke-linecap="round"/><path d="M120 96 Q144 89 176 82" fill="none" stroke="#1C1A17" stroke-width="1.4" stroke-linecap="round"/><path d="M120 120 Q90 113 48 106" fill="none" stroke="#1C1A17" stroke-width="1.4" stroke-linecap="round"/><path d="M120 116 Q111 109 98 102" fill="none" stroke="#1C1A17" stroke-width="1.4" stroke-linecap="round"/><path d="M120 116 Q129 109 142 102" fill="none" stroke="#1C1A17" stroke-width="1.4" stroke-linecap="round"/><path d="M120 120 Q150 113 192 106" fill="none" stroke="#1C1A17" stroke-width="1.4" stroke-linecap="round"/><path d="M120 142 Q103 135 80 128" fill="none" stroke="#1C1A17" stroke-width="1.4" stroke-linecap="round"/><path d="M120 142 Q137 135 160 128" fill="none" stroke="#1C1A17" stroke-width="1.4" stroke-linecap="round"/><path d="M116 176 C117 150 118 92 119 46 L121 46 C122 92 123 150 124 176 Z" fill="#1C1A17"/><path d="M98 177 Q120 187 142 177" fill="none" stroke="#1C1A17" stroke-width="2" stroke-linecap="round"/><ellipse cx="120" cy="178" rx="7" ry="2.3" fill="#1C1A17"/><use href="#tg" x="112.0" y="20" width="16" height="20"/><use href="#tg" x="84.0" y="40" width="16" height="20"/><use href="#tg" x="140.0" y="40" width="16" height="20"/><use href="#tg" x="112.0" y="56" width="16" height="20"/><use href="#tg" x="56.0" y="62" width="16" height="20"/><use href="#tg" x="168.0" y="62" width="16" height="20"/><use href="#tg" x="40.0" y="86" width="16" height="20"/><use href="#tg" x="90.0" y="82" width="16" height="20"/><use href="#tg" x="134.0" y="82" width="16" height="20"/><use href="#tg" x="184.0" y="86" width="16" height="20"/><use href="#tg" x="72.0" y="108" width="16" height="20"/><use href="#tg" x="152.0" y="108" width="16" height="20"/></svg>
         <div class="sn">«Пьяное дерево»</div><div class="ss">12 рюмок · 40 мл</div><div class="sp">3 000 ₽</div>
-      </div>
-      <div class="sig">
+      </div></div>
+    <div class="b-boat"><div class="sig">
         <svg class="boat-svg" viewBox="0 0 300 134" xmlns="http://www.w3.org/2000/svg"><defs><path id="bg" fill="#1C1A17" d="M3 2 H17 C17 9.6 13.8 12.9 11 13.5 V21.4 H15 V23.2 H5 V21.4 H9 V13.5 C6.2 12.9 3 9.6 3 2 Z"/></defs><path d="M46 78 Q150 92 254 78 Q150 112 46 78 Z" fill="#1C1A17"/><path d="M46 78 C24 68 15 43 31 29 C41 20 56 25 53 36 C51 44 42 44 40 37" fill="none" stroke="#1C1A17" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M254 78 C278 68 287 46 273 33 C267 28 260 31 261 39" fill="none" stroke="#1C1A17" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/><use href="#bg" x="57.5" y="64.2" width="13" height="16"/><use href="#bg" x="71.8" y="65.7" width="13" height="16"/><use href="#bg" x="86.2" y="66.9" width="13" height="16"/><use href="#bg" x="100.5" y="67.8" width="13" height="16"/><use href="#bg" x="114.8" y="68.5" width="13" height="16"/><use href="#bg" x="129.2" y="68.9" width="13" height="16"/><use href="#bg" x="143.5" y="69.0" width="13" height="16"/><use href="#bg" x="157.8" y="68.9" width="13" height="16"/><use href="#bg" x="172.2" y="68.5" width="13" height="16"/><use href="#bg" x="186.5" y="67.8" width="13" height="16"/><use href="#bg" x="200.8" y="66.9" width="13" height="16"/><use href="#bg" x="215.2" y="65.7" width="13" height="16"/><use href="#bg" x="229.5" y="64.2" width="13" height="16"/><path d="M30 120 Q58 114 86 120 T142 120 T198 120 T254 120 T284 120" fill="none" stroke="#1C1A17" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/></svg>
         <div class="sn">«Ладья»</div><div class="ss">28 рюмок · 40 мл</div><div class="sp">7 000 ₽</div>
-      </div>
-    </div>
-    </div>
+      </div></div>
   </div>
 </section>
 
@@ -698,16 +746,23 @@ a { color: inherit; text-decoration: none; }
 </section>
 
 <!-- 03 · КУХНЯ -->
-<figure class="plate-slim plate-l"><div class="frame"><img class="ph" src="assets/img/dish.webp" alt="Блюдо из меню ресторана ШТОФЪ" loading="lazy"><figcaption class="plate-tag">Кухня · от русской классики до пасты и пиццы</figcaption></div></figure>
-<section class="chapter" id="kitchen">
-  <span class="no no-r" aria-hidden="true" style="top:44px">03</span>
-  <div class="cat-head">
-    <p class="ch-kicker">Глава третья</p>
-    <h2>Кухня</h2>
-    <p class="sp-sub">русская классика · гриль · паста и пицца · закуски к пиву</p>
-    <div class="ch-rule"></div>
+<section class="chapter chapter-split" id="kitchen">
+  <div class="ch-split">
+    <figure class="ch-photo"><img class="ph" src="assets/img/dish.webp" alt="Блюдо из меню ресторана ШТОФЪ" loading="lazy"></figure>
+    <div class="ch-intro">
+      <span class="no no-r" aria-hidden="true">03</span>
+      <p class="ch-kicker">Глава третья</p>
+      <h2>Кухня</h2>
+      <p class="sp-sub">русская классика · гриль · паста и пицца · закуски к пиву</p>
+      <div class="ch-rule"></div>
+      <p class="ch-lead">От ухи с водкой и фирменных пельменей до тальяты и пиццы — <b>готовим сами и подаём по-честному</b>. Ниже вся карта по разделам: выбирайте вкладку.</p>
+      <div class="hits">
+        <p class="hits-t">С чего начать</p>
+        <ul class="hits-l"><li><span class="hit-n">Фирменные пельмени ШтофЪ</span><span class="hit-d"></span><span class="hit-p">350</span></li><li><span class="hit-n">Уха с водкой</span><span class="hit-d"></span><span class="hit-p">450</span></li><li><span class="hit-n">Сало по-домашнему</span><span class="hit-d"></span><span class="hit-p">690</span></li><li><span class="hit-n">Тальята с телятиной</span><span class="hit-d"></span><span class="hit-p">1 400</span></li><li><span class="hit-n">Фетучини с лососем</span><span class="hit-d"></span><span class="hit-p">850</span></li></ul>
+      </div>
+    </div>
   </div>
-    <div class="tabs" data-tabs="kitchen" role="tablist" aria-label="Разделы меню кухни">
+  <div class="tabs" data-tabs="kitchen" role="tablist" aria-label="Разделы меню кухни">
       <button class="tab active" id="tab-k-cold" role="tab" aria-selected="true" aria-controls="k-cold" tabindex="0" data-pane="k-cold">Закуски</button>
       <button class="tab" id="tab-k-salad" role="tab" aria-selected="false" aria-controls="k-salad" tabindex="-1" data-pane="k-salad">Салаты и супы</button>
       <button class="tab" id="tab-k-main" role="tab" aria-selected="false" aria-controls="k-main" tabindex="-1" data-pane="k-main">Горячее и гриль</button>
@@ -868,16 +923,23 @@ a { color: inherit; text-decoration: none; }
 </section>
 
 <!-- 04 · БАР -->
-<figure class="plate-slim plate-r"><div class="frame"><img class="ph" src="assets/img/guest-drink.webp" alt="Гостья с фирменной настойкой" loading="lazy"><figcaption class="plate-tag">Бар · вино, коктейли, чайная карта</figcaption></div></figure>
-<section class="chapter" id="bar">
-  <span class="no no-l" aria-hidden="true" style="top:44px">04</span>
-  <div class="cat-head">
-    <p class="ch-kicker">Глава четвёртая</p>
-    <h2>Барная карта</h2>
-    <p class="sp-sub">пиво · коктейли · крепкое · вино · чай и кофе</p>
-    <div class="ch-rule"></div>
+<section class="chapter chapter-split" id="bar">
+  <div class="ch-split rev">
+    <figure class="ch-photo"><img class="ph" src="assets/img/guest-drink.webp" alt="Гостья с коктейлем в зале ресторана ШТОФЪ" loading="lazy"></figure>
+    <div class="ch-intro">
+      <span class="no no-l" aria-hidden="true">04</span>
+      <p class="ch-kicker">Глава четвёртая</p>
+      <h2>Барная карта</h2>
+      <p class="sp-sub">пиво · коктейли · крепкое · вино · чай и кофе</p>
+      <div class="ch-rule"></div>
+      <p class="ch-lead">Пять кранов, коктейли на уральских ягодах, полугары, вино по бокалам и чайная карта — <b>бар собран так, чтобы к настойкам всегда было что добавить</b>.</p>
+      <div class="hits">
+        <p class="hits-t">С чего начать</p>
+        <ul class="hits-l"><li><span class="hit-n">Уральский Лес · коктейль</span><span class="hit-d"></span><span class="hit-p">580</span></li><li><span class="hit-n">Полугар Водка · 50 мл</span><span class="hit-d"></span><span class="hit-p">550</span></li><li><span class="hit-n">Жигулёвское · 0,3 / 0,5</span><span class="hit-d"></span><span class="hit-p">190 / 280</span></li><li><span class="hit-n">Саперави Каффа · бокал</span><span class="hit-d"></span><span class="hit-p">380</span></li><li><span class="hit-n">Душа Тайги · чайник</span><span class="hit-d"></span><span class="hit-p">590</span></li></ul>
+      </div>
+    </div>
   </div>
-    <div class="tabs" data-tabs="bar" role="tablist" aria-label="Разделы барной карты">
+  <div class="tabs" data-tabs="bar" role="tablist" aria-label="Разделы барной карты">
       <button class="tab active" id="tab-b-beer" role="tab" aria-selected="true" aria-controls="b-beer" tabindex="0" data-pane="b-beer">Пиво</button>
       <button class="tab" id="tab-b-cocktail" role="tab" aria-selected="false" aria-controls="b-cocktail" tabindex="-1" data-pane="b-cocktail">Коктейли</button>
       <button class="tab" id="tab-b-strong" role="tab" aria-selected="false" aria-controls="b-strong" tabindex="-1" data-pane="b-strong">Крепкое</button>
