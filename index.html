@@ -216,7 +216,7 @@ a { color: inherit; text-decoration: none; }
 /* ═══ ФОТО-ТРИПТИХ ═══ */
 .trio { border-top: 1px solid var(--line2); display: grid; grid-template-columns: repeat(3, 1fr); }
 .trio figure { position: relative; overflow: clip; }
-.trio img { width: 100%; height: 58vh; object-fit: cover; }
+.trio img { width: 100%; height: 84vh; object-fit: cover; object-position: 50% 40%; }
 .trio figcaption {
   padding: 14px 18px 34px; font-size: 10px; letter-spacing: .3em;
   text-transform: uppercase; color: var(--muted);
@@ -292,7 +292,7 @@ a { color: inherit; text-decoration: none; }
   .sp-rule { margin: 24px 0 36px; }
 
   .trio { grid-template-columns: 1fr; }
-  .trio img { height: 44vh; }
+  .trio img { height: 72vh; }
   .trio figcaption { padding-bottom: 26px; }
 
   .chapter { padding: 72px 20px 84px; }
@@ -394,11 +394,18 @@ a { color: inherit; text-decoration: none; }
 .pane-note { margin-top: 14px; font-size: 14px; font-style: italic; color: var(--muted); }
 
 /* ═══ УЗКИЕ ВКЛЕЙКИ ═══ */
-.plate-slim { position: relative; height: 44vh; overflow: clip; border-top: 1px solid var(--line2); }
-.plate-slim img { width: 100%; height: 100%; object-fit: cover; }
+/* узкие вклейки: фото ВЕРТИКАЛЬНЫЕ — показываем в натуральной пропорции на бумажном поле,
+   со смещением к полю (кухня — влево, бар — вправо), без кропа и апскейла */
+.plate-slim { position: relative; height: 86vh; overflow: clip; border-top: 1px solid var(--line2);
+  display: flex; align-items: stretch; }
+.plate-slim.plate-l { justify-content: flex-start; padding-left: clamp(40px, 12vw, 230px); }
+.plate-slim.plate-r { justify-content: flex-end; padding-right: clamp(40px, 12vw, 230px); }
+.plate-slim .frame { position: relative; height: 100%; flex: none; }
+.plate-slim img { height: 100%; width: auto; max-width: 100%; object-fit: contain; display: block; }
 .plate-slim .plate-tag {
   position: absolute; left: 0; bottom: 32px; background: var(--paper); color: var(--ink);
   font-size: 11px; letter-spacing: .26em; text-transform: uppercase; padding: 12px 26px 12px 32px;
+  white-space: nowrap;
 }
 @supports (animation-timeline: view()) {
   .plate-slim img { animation: plate-drift linear both; animation-timeline: view(); scale: 1.08; }
@@ -445,20 +452,24 @@ a { color: inherit; text-decoration: none; }
 .map-link:hover { color: var(--ink); }
 
 /* ═══ ФИНАЛЬНАЯ ВКЛЕЙКА (из варианта C) ═══ */
-.plate-final::after {
-  content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
-  background: linear-gradient(to top, rgba(20,18,15,.55), transparent 45%);
-}
+/* финал: чернильное поле, вертикальное фото в натуральной пропорции, подпись и кнопка под ним */
+.plate-final { background: var(--ink); height: auto; min-height: 92vh; overflow: clip;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 72px 24px 80px; border-top: 0; }
+.plate-final img { width: auto; height: min(64vh, 640px); max-width: 100%; object-fit: contain;
+  animation: none; scale: 1; }
+.plate-final::after { display: none; }
 .plate-cap {
-  position: absolute; left: 48px; bottom: 44px; z-index: 2;
+  position: static; order: 2; margin-top: 34px;
   display: flex; align-items: center; gap: 18px;
-  color: #fff; font-size: 12px; letter-spacing: .3em; text-transform: uppercase; max-width: 82vw;
+  color: rgba(251,250,246,.78); font-size: 12px; letter-spacing: .3em; text-transform: uppercase; max-width: 82vw;
 }
 .plate-cap::before { content: ""; width: 40px; height: 1px; background: #fff; flex: none; }
 .plate-btn {
-  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 2;
-  padding: 16px 36px; font-size: 13px;
+  position: static; order: 3; transform: none; margin-top: 26px;
+  padding: 16px 36px; font-size: 13px; background: var(--paper); color: var(--ink);
 }
+.plate-btn:hover { opacity: .9; }
 
 /* ═══ ЛИПКАЯ ПАНЕЛЬ БРОНИ (мобильный) ═══ */
 .cta-bar { display: none; }
@@ -473,7 +484,9 @@ a { color: inherit; text-decoration: none; }
   .band-in { grid-template-columns: 1fr; gap: 64px 0; padding: 64px 20px 72px; }
   .menu-cols { columns: 1; }
   .tabs { margin: 36px -20px 36px; padding: 0 20px; }
-  .plate-slim { height: 34vh; }
+  .plate-slim { height: 72vh; }
+  .plate-slim.plate-l, .plate-slim.plate-r { justify-content: center; padding: 0 20px; }
+  .plate-slim .plate-tag { white-space: normal; max-width: 80vw; }
   .cmap { border-left: 0; margin-top: 24px; }
   .map-frame { min-height: 360px; }
   .facts { grid-template-columns: 1fr 1fr; }
@@ -643,10 +656,7 @@ a { color: inherit; text-decoration: none; }
 </section>
 
 <!-- 03 · КУХНЯ -->
-<figure class="plate-slim">
-  <img class="ph" src="assets/img/dish.webp" alt="Блюдо русской кухни ШТОФЪ" loading="lazy">
-  <figcaption class="plate-tag">Кухня · русская классика и гриль</figcaption>
-</figure>
+<figure class="plate-slim plate-l"><div class="frame"><img class="ph" src="assets/img/dish.webp" alt="Блюдо русской кухни ШТОФЪ" loading="lazy"><figcaption class="plate-tag">Кухня · русская классика и гриль</figcaption></div></figure>
 <section class="chapter" id="kitchen">
   <span class="no no-r" aria-hidden="true" style="top:44px">03</span>
   <div class="cat-head">
@@ -816,10 +826,7 @@ a { color: inherit; text-decoration: none; }
 </section>
 
 <!-- 04 · БАР -->
-<figure class="plate-slim">
-  <img class="ph" src="assets/img/guest-drink.webp" alt="Гостья с фирменной настойкой" loading="lazy">
-  <figcaption class="plate-tag">Бар · вино, коктейли, чайная карта</figcaption>
-</figure>
+<figure class="plate-slim plate-r"><div class="frame"><img class="ph" src="assets/img/guest-drink.webp" alt="Гостья с фирменной настойкой" loading="lazy"><figcaption class="plate-tag">Бар · вино, коктейли, чайная карта</figcaption></div></figure>
 <section class="chapter" id="bar">
   <span class="no no-l" aria-hidden="true" style="top:44px">04</span>
   <div class="cat-head">
