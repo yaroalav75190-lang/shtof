@@ -386,12 +386,12 @@ a { color: inherit; text-decoration: none; }
 .band-3 .sig .tree-svg { width: 210px; }
 .band-3 .sig .boat-svg { width: 270px; }
 @media (max-width: 900px) {
-  .band-3 { grid-template-columns: 1fr 1fr; grid-template-areas: "l1 l1" "sets sets" "l2 l2" "tree boat"; gap: 0 24px; }
+  .band-in.band-3 { grid-template-columns: 1fr 1fr; grid-template-areas: "l1 l1" "sets sets" "l2 l2" "tree boat"; gap: 0 24px; }
   .band-3 .b-l2 { margin-top: 56px; }
   .band-3 .sig .tree-svg { width: 150px; } .band-3 .sig .boat-svg { width: 190px; }
 }
 @media (max-width: 520px) {
-  .band-3 { grid-template-columns: 1fr; grid-template-areas: "l1" "sets" "l2" "tree" "boat"; }
+  .band-in.band-3 { grid-template-columns: 1fr; grid-template-areas: "l1" "sets" "l2" "tree" "boat"; gap: 0; }
   .band-3 .b-boat { border-left: 0; margin-top: 36px; }
   .band-3 .b-tree, .band-3 .b-boat { min-height: 0; justify-content: flex-start; }
   .band-3 .b-l2 { margin-top: 44px; }
