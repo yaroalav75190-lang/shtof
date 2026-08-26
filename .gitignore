@@ -14,5 +14,6 @@ __pycache__/
 /*.png
 /*.mp4
 /*.MOV
-
-
+~$*
+_превью_прод/
+assets/fonts/_latin_range.txt
