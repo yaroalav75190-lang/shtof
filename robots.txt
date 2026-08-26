@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://shtofekb.ru/sitemap.xml
+Host: shtofekb.ru
