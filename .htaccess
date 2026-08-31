@@ -1,0 +1,46 @@
+# ШТОФЪ Екатерининскiй — конфигурация для виртуального хостинга Timeweb.
+# Файл лежит в корне сайта (public_html) и подхватывается Apache автоматически.
+
+RewriteEngine On
+
+# --- 1. Только HTTPS -------------------------------------------------------
+# ВНИМАНИЕ: включать ТОЛЬКО после того, как в панели Timeweb выпущен SSL.
+# Если включить раньше — сайт уйдёт в редирект на нерабочий https и ляжет.
+# Чтобы включить: убрать символы «# » в трёх строках ниже.
+#
+# RewriteCond %{HTTPS} !=on
+# RewriteCond %{HTTP:X-Forwarded-Proto} !https
+# RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+
+# --- 2. www → без www ------------------------------------------------------
+# Канонический адрес — shtofekb.ru, он же указан в canonical и og:url.
+RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
+
+# --- 3. Служебные файлы наружу не отдаём -----------------------------------
+RewriteRule (^|/)\.git - [F,L]
+RewriteRule ^_.*\.(py|md)$ - [F,L]
+
+# --- 4. Кэширование статики ------------------------------------------------
+# Картинки, шрифты и видео не меняются — отдаём с длинным кэшем.
+# HTML не кэшируем, чтобы правки были видны сразу.
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/webp    "access plus 1 year"
+  ExpiresByType image/jpeg    "access plus 1 year"
+  ExpiresByType image/png     "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType font/woff2    "access plus 1 year"
+  ExpiresByType video/mp4     "access plus 1 year"
+  ExpiresByType text/html     "access plus 0 seconds"
+</IfModule>
+
+# --- 5. Сжатие -------------------------------------------------------------
+# webp/woff2/mp4 уже сжаты — их не трогаем.
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/css text/xml
+  AddOutputFilterByType DEFLATE application/javascript image/svg+xml
+</IfModule>
+
+# --- 6. Кодировка ----------------------------------------------------------
+AddDefaultCharset UTF-8
