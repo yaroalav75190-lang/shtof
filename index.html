@@ -2,6 +2,12 @@
 <html lang="ru">
 <head>
 <meta charset="utf-8">
+<!-- Запасная защита: на хостинге отключён mod_headers, и заголовки из .htaccess
+     не отдаются. Через мета-теги работают только эти два — CSP и Referrer-Policy;
+     HSTS, nosniff, X-Frame-Options и Permissions-Policy мета-тегами не задаются,
+     они появятся, когда поддержка включит модуль. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://mc.yandex.ru https://yastatic.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://mc.yandex.ru; font-src 'self'; media-src 'self'; connect-src 'self' https://mc.yandex.ru; frame-src https://mc.yandex.ru; base-uri 'self'; form-action 'self'; object-src 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>ШТОФЪ Екатерининский — ресторан настоек, русской и европейской кухни в Екатеринбурге</title>
 <meta name="description" content="Ресторан ШТОФЪ Екатерининский в центре Екатеринбурга: более 60 авторских настоек собственного производства, русская и европейская кухня, дегустационные сеты. ул. 8 Марта, 8д, ТЦ «Мытный двор». Бронь: 8 922 619-33-33.">
