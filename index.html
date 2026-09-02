@@ -779,6 +779,18 @@ a { color: inherit; text-decoration: none; }
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
 clip:rect(0,0,0,0);white-space:nowrap;border:0}
 
+
+/* Уведомление о cookie. На мобильном встаёт НАД панелью брони: её высоту
+   меряет скрипт и кладёт в --cta-h, чтобы не угадывать пикселями. */
+.cookie{position:fixed;left:0;right:0;bottom:var(--cta-h,0px);z-index:70;
+display:flex;gap:20px;align-items:center;justify-content:center;flex-wrap:wrap;
+background:var(--paper);border-top:1px solid var(--line);padding:14px 20px}
+.cookie-t{margin:0;font-size:13px;line-height:1.6;color:var(--muted);max-width:68ch}
+.cookie-t a{color:var(--ink)}
+.cookie-b{flex:none;background:var(--ink);color:var(--paper);border:0;cursor:pointer;
+padding:11px 24px;font-family:inherit;font-size:12px;letter-spacing:.16em;text-transform:uppercase}
+.cookie-b:hover{opacity:.85}
+@media (max-width:600px){.cookie{gap:12px;padding:12px 16px}.cookie-t{font-size:12px}}
 </style>
 <noscript><style>.pane{display:block!important}.tabs{display:none}</style></noscript>
 
@@ -1289,11 +1301,7 @@ clip:rect(0,0,0,0);white-space:nowrap;border:0}
     <p class="req-t">Реквизиты</p>
     <p class="req-l">ООО «Папирус» · ИНН 6325063533 · КПП 632501001 · ОГРН 1116325001198</p>
     <p class="req-l">Юридический адрес: 446001, Самарская обл., г. Сызрань, ул. Ульяновская, д. 2А</p>
-    <details class="req-d">
-      <summary>Банковские реквизиты</summary>
-      <p class="req-l">Поволжский банк ПАО «Сбербанк России», г. Самара · БИК 043601607</p>
-      <p class="req-l">р/с 40702810154050002912 · к/с 30101810200000000607</p>
-    </details>
+      <p class="req-l"><a href="/privacy.html">Политика конфиденциальности</a></p>
   </div>
   <span class="foot-age">18+</span>
 </footer>
@@ -1383,6 +1391,36 @@ if(mapPoster){
       h.indexOf('yandex.ru/maps') > -1 ? 'maps'       : null;
     if (goal) ym(ID, 'reachGoal', goal);
   }, true);
+})();
+</script>
+
+<!-- УВЕДОМЛЕНИЕ О COOKIE -->
+<div class="cookie" id="cookieNote" hidden>
+  <p class="cookie-t">Мы собираем обезличенную статистику посещений через файлы cookie —
+    чтобы понимать, какие разделы меню читают и удобно ли пользоваться сайтом с телефона.
+    Подробности — в <a href="/privacy.html">политике конфиденциальности</a>.</p>
+  <button class="cookie-b" type="button" id="cookieOk">Хорошо</button>
+</div>
+<script>
+(function(){
+  var KEY='shtof-cookie-ok', note=document.getElementById('cookieNote'),
+      btn=document.getElementById('cookieOk'), bar=document.querySelector('.cta-bar');
+  function stored(k){try{return localStorage.getItem(k)}catch(e){return null}}
+  if(stored(KEY)) return;                       // уже согласились — не показываем
+  function place(){                             // поднять над панелью брони, если она видна
+    var h=(bar&&getComputedStyle(bar).display!=='none')?Math.round(bar.getBoundingClientRect().height):0;
+    document.documentElement.style.setProperty('--cta-h',h+'px');
+  }
+  place(); addEventListener('resize',place); addEventListener('load',place);
+  // Панель меняет высоту от ширины экрана и от подгрузки шрифта — следим за ней,
+  // иначе замер устаревает и баннер повисает с зазором.
+  if(bar && window.ResizeObserver) new ResizeObserver(place).observe(bar);
+  note.hidden=false;
+  btn.addEventListener('click',function(){
+    try{localStorage.setItem(KEY,'1')}catch(e){}
+    note.hidden=true;
+    document.documentElement.style.setProperty('--cta-h','0px');
+  });
 })();
 </script>
 </body>

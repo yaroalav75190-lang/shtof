@@ -3,25 +3,51 @@
 
 RewriteEngine On
 
-# --- 1. Только HTTPS -------------------------------------------------------
-# ВНИМАНИЕ: включать ТОЛЬКО после того, как в панели Timeweb выпущен SSL.
-# Если включить раньше — сайт уйдёт в редирект на нерабочий https и ляжет.
-# Чтобы включить: убрать символы «# » в трёх строках ниже.
+# --- 1. HTTPS --------------------------------------------------------------
+# Редирект http → https включён ТУМБЛЕРОМ в панели Timeweb
+# («Настройки сайта → Перенаправлять на HTTPS»), здесь дублировать не нужно.
+# Если тумблер вдруг выключится — раскомментировать три строки ниже.
 #
 # RewriteCond %{HTTPS} !=on
 # RewriteCond %{HTTP:X-Forwarded-Proto} !https
 # RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
 
 # --- 2. www → без www ------------------------------------------------------
-# Канонический адрес — shtofekb.ru, он же указан в canonical и og:url.
+# Канонический адрес — https://shtofekb.ru, он же в canonical и og:url.
+# Сразу на https: иначе выходит лишний прыжок www → http → https.
 RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
-RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
+RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
 
 # --- 3. Служебные файлы наружу не отдаём -----------------------------------
 RewriteRule (^|/)\.git - [F,L]
 RewriteRule ^_.*\.(py|md)$ - [F,L]
 
-# --- 4. Кэширование статики ------------------------------------------------
+# --- 4. Заголовки безопасности ---------------------------------------------
+<IfModule mod_headers.c>
+  # Браузер обязан ходить только по https. 180 дней.
+  # ВАЖНО: если SSL когда-нибудь отвалится, вернувшиеся гости не смогут
+  # открыть сайт даже по http — лечится починкой SSL, а не удалением строки.
+  Header always set Strict-Transport-Security "max-age=15552000"
+
+  # Не угадывать тип файла по содержимому (защита от подмены картинки скриптом).
+  Header always set X-Content-Type-Options "nosniff"
+
+  # Сайт нельзя вставить в чужой iframe — защита от кликджекинга,
+  # когда поверх страницы кладут невидимый слой и воруют клики.
+  Header always set X-Frame-Options "DENY"
+
+  # При переходе на чужой сайт не передавать полный адрес страницы.
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+
+  # Отключаем то, чем сайт не пользуется.
+  Header always set Permissions-Policy "geolocation=(), microphone=(), camera=(), payment=(), usb=()"
+
+  # Откуда странице разрешено что-либо грузить. Всё своё плюс Яндекс.Метрика.
+  # 'unsafe-inline' нужен: стили и скрипты у нас встроены в страницу.
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://mc.yandex.ru https://yastatic.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://mc.yandex.ru; font-src 'self'; media-src 'self'; connect-src 'self' https://mc.yandex.ru; frame-src https://mc.yandex.ru; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'"
+</IfModule>
+
+# --- 5. Кэширование статики ------------------------------------------------
 # Картинки, шрифты и видео не меняются — отдаём с длинным кэшем.
 # HTML не кэшируем, чтобы правки были видны сразу.
 <IfModule mod_expires.c>
@@ -35,12 +61,12 @@ RewriteRule ^_.*\.(py|md)$ - [F,L]
   ExpiresByType text/html     "access plus 0 seconds"
 </IfModule>
 
-# --- 5. Сжатие -------------------------------------------------------------
+# --- 6. Сжатие -------------------------------------------------------------
 # webp/woff2/mp4 уже сжаты — их не трогаем.
 <IfModule mod_deflate.c>
   AddOutputFilterByType DEFLATE text/html text/plain text/css text/xml
   AddOutputFilterByType DEFLATE application/javascript image/svg+xml
 </IfModule>
 
-# --- 6. Кодировка ----------------------------------------------------------
+# --- 7. Кодировка ----------------------------------------------------------
 AddDefaultCharset UTF-8
