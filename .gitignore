@@ -12,6 +12,8 @@ __pycache__/
 *.heic
 /*.PNG
 /*.png
+!favicon-120.png
+!apple-touch-icon.png
 /*.mp4
 /*.MOV
 ~$*
